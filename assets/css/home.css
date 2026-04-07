@@ -1,0 +1,774 @@
+:root {
+    --background: #f9f9f9;
+    --surface: #ffffff;
+    --surface-low: #f3f3f3;
+    --surface-mid: #eeeeee;
+    --surface-high: #e8e8e8;
+    --text: #1a1c1c;
+    --text-soft: #404944;
+    --primary: #003527;
+    --primary-container: #064e3b;
+    --secondary: #735c00;
+    --secondary-container: #fed65b;
+    --outline: rgba(112, 121, 116, 0.16);
+    --shadow: 0 24px 48px rgba(0, 53, 39, 0.06);
+    --radius-xl: 1rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(254, 214, 91, 0.12), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(0, 53, 39, 0.08), transparent 28%),
+        var(--background);
+    color: var(--text);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0;
+    line-height: 1;
+}
+
+.site-brand,
+.hero-prayer h1,
+.bento-card h2,
+.community-section h2,
+.community-card h3 {
+    font-family: "Noto Serif", serif;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(249, 249, 249, 0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(191, 201, 195, 0.28);
+}
+
+.site-header__inner,
+.page-shell,
+.site-footer__inner {
+    width: min(1280px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+.site-header__inner {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+}
+
+.site-brand {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: auto;
+    color: rgba(26, 28, 28, 0.58);
+}
+
+.site-nav a:hover,
+.footer-links a:hover,
+.article-meta a:not(.button-link):hover,
+.section-heading a:not(.button-link):hover {
+    color: var(--primary);
+}
+
+.site-header__cta,
+.button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1.3rem;
+    border-radius: 999px;
+    background: var(--secondary-container);
+    color: #241a00;
+    font-weight: 700;
+    transition: transform 180ms ease;
+}
+
+.site-header__cta:hover,
+.button-link:hover {
+    transform: translateY(-1px);
+}
+
+.page-shell {
+    padding: 2rem 0 6rem;
+}
+
+.notice-banner {
+    margin-bottom: 1rem;
+    padding: 1rem 1.15rem;
+    border-radius: 0.9rem;
+    background: rgba(254, 214, 91, 0.18);
+    color: var(--secondary);
+}
+
+.notice-banner--soft {
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text-soft);
+}
+
+.hero-prayer {
+    position: relative;
+    overflow: hidden;
+    padding: 3.75rem 4rem;
+    border-radius: var(--radius-xl);
+    color: #ffffff;
+    background:
+        radial-gradient(circle at top right, rgba(254, 214, 91, 0.14), transparent 24%),
+        linear-gradient(155deg, var(--primary-container) 0%, var(--primary) 72%);
+    box-shadow: 0 32px 60px rgba(0, 53, 39, 0.18);
+}
+
+.hero-prayer__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+}
+
+.eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.bento-card--wide .eyebrow,
+.bento-card--article .eyebrow {
+    color: var(--secondary);
+}
+
+.bento-card--donation .eyebrow {
+    color: rgba(36, 26, 0, 0.72);
+}
+
+.bento-card--video .eyebrow {
+    color: rgba(255, 255, 255, 0.74);
+}
+
+.hero-prayer h1 {
+    margin: 0;
+    font-size: clamp(4rem, 10vw, 7rem);
+    line-height: 0.94;
+    letter-spacing: -0.05em;
+}
+
+.hero-prayer__time {
+    margin: 0.9rem 0 0;
+    color: var(--secondary-container);
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+.hero-prayer__meta {
+    margin: 0.8rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.1rem;
+    min-width: 420px;
+}
+
+.prayer-grid div {
+    display: grid;
+    gap: 0.35rem;
+    padding-bottom: 0.55rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.64);
+}
+
+.prayer-grid span {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14rem;
+}
+
+.prayer-grid strong {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.prayer-grid .is-active {
+    border-bottom: 2px solid rgba(254, 214, 91, 0.92);
+}
+
+.prayer-grid .is-active span,
+.prayer-grid .is-active strong {
+    color: var(--secondary-container);
+}
+
+.ticker {
+    margin-top: 1.5rem;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--surface-low);
+    border-left: 4px solid var(--primary);
+}
+
+.ticker__track {
+    display: flex;
+    gap: 2rem;
+    padding: 0.9rem 1.1rem;
+    white-space: nowrap;
+    color: var(--text-soft);
+    animation: marquee 28s linear infinite;
+}
+
+.bento-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.5rem;
+    grid-auto-rows: minmax(250px, auto);
+}
+
+.bento-card {
+    border: 1px solid rgba(26, 28, 28, 0.08);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+}
+
+.bento-card h2,
+.community-section h2 {
+    margin: 0;
+    color: var(--primary);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.06;
+}
+
+.card-copy,
+.card-meta span,
+.bento-card--video span,
+.article-meta span,
+.progress-meta span,
+.section-heading p,
+.community-card p,
+.site-footer p,
+.site-footer__copy {
+    color: var(--text-soft);
+    line-height: 1.75;
+}
+
+.bento-card--wide {
+    grid-column: span 8;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.2rem;
+    background: var(--surface);
+}
+
+.card-meta strong,
+.bento-card--video strong {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--primary);
+}
+
+.schedule-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.schedule-card__details {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+}
+
+.schedule-card__details strong {
+    color: var(--primary);
+    font-size: 1.1rem;
+    line-height: 1.35;
+}
+
+.schedule-card__details span {
+    color: var(--text-soft);
+    line-height: 1.65;
+}
+
+.schedule-card__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.meta-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    background: var(--primary-container);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.meta-chip--soft {
+    background: var(--surface-mid);
+    color: var(--primary);
+}
+
+.bento-card--video {
+    grid-column: span 4;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    color: #ffffff;
+    background:
+        linear-gradient(160deg, rgba(6, 78, 59, 0.94) 0%, rgba(0, 53, 39, 0.98) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bento-card--video::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 54px),
+        radial-gradient(circle at top left, rgba(254, 214, 91, 0.08), transparent 22%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    opacity: 0.65;
+}
+
+.bento-card--video > * {
+    position: relative;
+    z-index: 1;
+}
+
+.bento-card--video h2,
+.bento-card--video strong,
+.bento-card--video .card-copy,
+.bento-card--video span {
+    color: #ffffff;
+}
+
+.bento-card--video strong {
+    margin-top: 1rem;
+    font-size: 1.6rem;
+    line-height: 1.25;
+}
+
+.video-card__meta {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.95rem;
+}
+
+.icon-pill {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--secondary-container);
+    font-size: 2.2rem;
+}
+
+.bento-card--donation {
+    grid-column: span 5;
+    padding: 2rem;
+    background: linear-gradient(180deg, #ffe088 0%, var(--secondary-container) 100%);
+}
+
+.bento-card--donation .eyebrow,
+.bento-card--donation h2,
+.bento-card--donation .card-copy,
+.bento-card--donation .progress-meta span {
+    color: #241a00;
+}
+
+.progress-block {
+    margin-top: 1.5rem;
+}
+
+.progress-track {
+    height: 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--primary) 0%, #2b6954 100%);
+}
+
+.progress-meta {
+    margin-top: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.progress-caption {
+    margin: 0.85rem 0 0;
+    color: #241a00;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+}
+
+.bento-card--article {
+    grid-column: span 7;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--surface-high);
+}
+
+.article-thumb {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background:
+        radial-gradient(circle at top left, rgba(254, 214, 91, 0.24), transparent 24%),
+        linear-gradient(150deg, #9fd1c0 0%, #dbeae2 52%, #f4efe4 100%);
+}
+
+.article-thumb::after {
+    content: "Allah";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    font-family: "Noto Serif", serif;
+    font-size: 3rem;
+    color: rgba(0, 53, 39, 0.52);
+}
+
+.article-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.article-thumb--image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.18));
+    z-index: 2;
+}
+
+.article-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.article-content h2 {
+    font-size: 2.1rem;
+}
+
+.article-meta {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.article-meta a:not(.button-link),
+.section-heading a:not(.button-link) {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.article-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06rem;
+    text-transform: uppercase;
+}
+
+.button-link--dark {
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.76rem;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+}
+
+.button-link--dark:hover,
+.button-link--dark:focus-visible {
+    color: #ffffff;
+}
+
+.button-link--dark .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+.community-section {
+    margin-top: 6rem;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.5rem;
+}
+
+.section-heading p {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+}
+
+.community-grid {
+    margin-top: 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.community-card {
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.community-card h3 {
+    margin: 0 0 0.75rem;
+    color: var(--primary);
+    font-size: 1.55rem;
+}
+
+.site-footer {
+    background: var(--surface-mid);
+    border-top: 1px solid rgba(191, 201, 195, 0.2);
+}
+
+.floating-channel-link {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 45;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 1.15rem;
+    background: rgba(0, 53, 39, 0.96);
+    color: #ffffff;
+    box-shadow: 0 20px 44px rgba(0, 53, 39, 0.24);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.floating-channel-link:hover,
+.floating-channel-link:focus-visible {
+    transform: translateY(-2px);
+    color: #ffffff;
+    box-shadow: 0 24px 52px rgba(0, 53, 39, 0.28);
+}
+
+.floating-channel-link__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 999px;
+    background: rgba(254, 214, 91, 0.14);
+    color: var(--secondary-container);
+    font-size: 1.25rem;
+}
+
+.floating-channel-link__copy {
+    display: grid;
+    gap: 0.12rem;
+    line-height: 1.2;
+}
+
+.floating-channel-link__copy strong {
+    color: #ffffff;
+    font-size: 0.88rem;
+    letter-spacing: 0.02rem;
+}
+
+.floating-channel-link__copy span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.76rem;
+}
+
+.site-footer__inner {
+    padding: 2rem 0 2.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    color: rgba(26, 28, 28, 0.55);
+}
+
+.site-footer__copy {
+    margin: 0;
+    font-size: 0.88rem;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-35%);
+    }
+}
+
+@media (max-width: 1100px) {
+    .site-nav {
+        display: none;
+    }
+
+    .hero-prayer {
+        padding: 3rem;
+    }
+
+    .hero-prayer__content,
+    .schedule-card__footer,
+    .section-heading,
+    .site-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .prayer-grid {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .bento-card--wide,
+    .bento-card--video,
+    .bento-card--donation,
+    .bento-card--article {
+        grid-column: span 12;
+    }
+
+    .community-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .site-header__inner,
+    .page-shell,
+    .site-footer__inner {
+        width: min(100% - 24px, 1280px);
+    }
+
+    .site-header__inner {
+        min-height: 68px;
+    }
+
+    .site-brand {
+        font-size: 1.4rem;
+    }
+
+    .site-header__cta,
+    .button-link {
+        width: 100%;
+    }
+
+    .page-shell {
+        padding: 1.5rem 0 5rem;
+    }
+
+    .floating-channel-link {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        justify-content: center;
+    }
+
+    .hero-prayer,
+    .bento-card,
+    .community-card {
+        border-radius: 0.9rem;
+    }
+
+    .hero-prayer {
+        padding: 2rem 1.5rem;
+    }
+
+    .prayer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .prayer-grid div:last-child {
+        grid-column: span 2;
+    }
+
+    .bento-card--article {
+        grid-template-columns: 1fr;
+    }
+
+    .article-thumb {
+        min-height: 12rem;
+    }
+}

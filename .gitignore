@@ -1,0 +1,12 @@
+.env
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+assets/uploads/**
+!assets/uploads/.gitkeep
+!assets/uploads/articles/
+!assets/uploads/articles/.gitkeep
+!assets/uploads/gallery/
+!assets/uploads/gallery/.gitkeep
