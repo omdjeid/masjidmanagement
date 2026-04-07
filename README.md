@@ -8,7 +8,6 @@ Template website masjid berbasis PHP dan MySQL yang dirancang agar mudah dipakai
 - konfigurasi lokal memakai `.env`
 - pembuatan super admin pertama langsung dari browser
 - routing publik ramah SEO dengan `.htaccess`
-- cocok untuk XAMPP, shared hosting PHP, atau server LAMP standar
 
 ## Stack
 
