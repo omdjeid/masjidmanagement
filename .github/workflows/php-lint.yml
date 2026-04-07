@@ -1,0 +1,38 @@
+name: PHP Lint
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+      - "fix/**"
+      - "hotfix/**"
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Collect PHP files
+        shell: bash
+        run: |
+          find . -type f -name "*.php" \
+            -not -path "./.git/*" \
+            -print > php-files.txt
+
+      - name: Run php -l
+        shell: bash
+        run: |
+          while IFS= read -r file; do
+            php -l "$file"
+          done < php-files.txt

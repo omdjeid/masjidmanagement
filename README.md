@@ -103,6 +103,15 @@ Alur kerja yang disarankan:
 
 Panduan kontribusi singkat tersedia di `CONTRIBUTING.md`.
 
+## GitHub Collaboration
+
+Repository ini sudah disiapkan untuk workflow GitHub yang lebih rapi:
+
+- template PR tersedia di `.github/PULL_REQUEST_TEMPLATE.md`
+- issue template tersedia di `.github/ISSUE_TEMPLATE/`
+- owner review default tersedia di `.github/CODEOWNERS`
+- lint syntax PHP otomatis tersedia di `.github/workflows/php-lint.yml`
+
 ## Repository Hygiene
 
 - `.env` tidak ikut ke repository

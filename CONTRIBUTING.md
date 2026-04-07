@@ -18,6 +18,12 @@ Terima kasih sudah membantu mengembangkan template ini.
 4. Jalankan pengecekan sintaks PHP seperlunya, misalnya `php -l nama_file.php`.
 5. Ajukan merge kembali ke `develop`.
 
+## Pull Request
+
+- gunakan template PR yang sudah tersedia
+- jelaskan perubahan, alasan, dan validasi yang dilakukan
+- usahakan satu PR fokus pada satu tujuan utama
+
 ## Commit Style
 
 Gunakan pesan commit yang singkat, jelas, dan berorientasi hasil. Contoh:
@@ -32,3 +38,4 @@ Gunakan pesan commit yang singkat, jelas, dan berorientasi hasil. Contoh:
 - jangan commit isi folder upload lokal
 - usahakan default branding tetap generik agar repo tetap reusable
 - jaga kompatibilitas dengan shared hosting PHP standar
+- pastikan perubahan baru tetap lolos lint syntax PHP
