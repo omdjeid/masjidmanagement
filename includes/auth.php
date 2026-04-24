@@ -124,7 +124,7 @@ function app_url(string $path = ''): string
 
 function configured_app_origin(): string
 {
-    $appUrl = trim((string) getenv('APP_URL'));
+    $appUrl = trim((string) env_value('APP_URL', ''));
 
     if ($appUrl === '') {
         return '';

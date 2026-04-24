@@ -51,12 +51,34 @@ function load_environment_file(?string $filePath = null): void
             $value = substr($value, 1, -1);
         }
 
-        if (getenv($name) !== false) {
+        if (env_value($name) !== null) {
             continue;
         }
 
-        putenv($name . '=' . $value);
+        if (function_exists('putenv')) {
+            putenv($name . '=' . $value);
+        }
+
         $_ENV[$name] = $value;
         $_SERVER[$name] = $value;
     }
+}
+
+function env_value(string $name, ?string $default = null): ?string
+{
+    $value = getenv($name);
+
+    if ($value !== false) {
+        return (string) $value;
+    }
+
+    if (array_key_exists($name, $_ENV)) {
+        return (string) $_ENV[$name];
+    }
+
+    if (array_key_exists($name, $_SERVER)) {
+        return (string) $_SERVER[$name];
+    }
+
+    return $default;
 }
