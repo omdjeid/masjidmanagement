@@ -110,7 +110,7 @@ public_page_start(
                         <span><?= h($siteName); ?></span>
                     </div>
                     <div class="qurban-payment-note">
-                        <span><span class="qurban-paid-mark" aria-hidden="true">&#9745;</span> Sudah membayar</span>
+                        <span><span class="qurban-paid-mark" aria-hidden="true">✅</span> Sudah membayar</span>
                         <span>Tanpa tanda: Belum membayar</span>
                     </div>
                     <?php if ($selectedYearAnimalCounts !== []): ?>
@@ -146,7 +146,7 @@ public_page_start(
                                                     <strong>
                                                         <?= h((string) $participant['participant_name']); ?>
                                                         <?php if ((int) ($participant['is_paid'] ?? 0) === 1): ?>
-                                                            <span class="qurban-paid-mark" aria-label="Sudah bayar" title="Sudah bayar">&#9745;</span>
+                                                            <span class="qurban-paid-mark" aria-label="Sudah bayar" title="Sudah bayar">✅</span>
                                                         <?php endif; ?>
                                                     </strong>
                                                     <?php if (trim((string) ($participant['notes'] ?? '')) !== ''): ?>
@@ -178,7 +178,7 @@ public_page_start(
                                             <strong>
                                                 <?= h((string) $participant['participant_name']); ?>
                                                 <?php if ((int) ($participant['is_paid'] ?? 0) === 1): ?>
-                                                    <span class="qurban-paid-mark" aria-label="Sudah bayar" title="Sudah bayar">&#9745;</span>
+                                                    <span class="qurban-paid-mark" aria-label="Sudah bayar" title="Sudah bayar">✅</span>
                                                 <?php endif; ?>
                                             </strong>
                                             <?php if (trim((string) ($participant['notes'] ?? '')) !== ''): ?>
