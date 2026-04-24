@@ -371,6 +371,7 @@ $prayerLabels = [
                 <a href="<?= h(app_url('laporan.php')); ?>">Laporan</a>
                 <a href="<?= h(app_url('lokasi.php')); ?>">Lokasi</a>
                 <a href="<?= h(app_url('infaq-page.php')); ?>">Infaq</a>
+                <a href="<?= h(app_url('qurban-page.php')); ?>">Qurban</a>
             </nav>
         </div>
     </header>
@@ -497,28 +498,6 @@ $prayerLabels = [
             </article>
         </section>
 
-        <section class="community-section">
-            <div class="section-heading">
-                <div>
-                    <h2>Community Voice</h2>
-                    <p>Ruang digital yang tenang untuk kajian, literasi, dan pelayanan jamaah dengan arah visual yang sama seperti referensi stitch.</p>
-                </div>
-            </div>
-            <div class="community-grid">
-                <article class="community-card">
-                    <h3>Youth Hub</h3>
-                    <p>Memberi ruang untuk pembinaan generasi muda melalui mentoring, kajian, dan program keterampilan.</p>
-                </article>
-                <article class="community-card">
-                    <h3>Library Access</h3>
-                    <p>Menghadirkan akses ke koleksi kitab, buku Islam kontemporer, dan artikel pembelajaran yang tertata.</p>
-                </article>
-                <article class="community-card">
-                    <h3>Family Counseling</h3>
-                    <p>Membuka jalur pendampingan keluarga dan konsultasi dengan nuansa yang hangat, rapi, dan tidak terasa kaku.</p>
-                </article>
-            </div>
-        </section>
     </main>
 
     <?php if ($whatsAppChannelUrl !== ''): ?>
@@ -546,6 +525,7 @@ $prayerLabels = [
                 <a href="<?= h(app_url('laporan.php')); ?>">Laporan</a>
                 <a href="<?= h(app_url('lokasi.php')); ?>">Lokasi</a>
                 <a href="<?= h(app_url('infaq-page.php')); ?>">Infaq</a>
+                <a href="<?= h(app_url('qurban-page.php')); ?>">Qurban</a>
             </div>
             <p class="site-footer__copy">&copy; 2026 <?= h($siteName); ?><?= $siteTagline !== '' ? '. ' . h($siteTagline) : ''; ?></p>
         </div>

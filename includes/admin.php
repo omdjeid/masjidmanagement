@@ -277,6 +277,85 @@ function infaq_completion_mode_label(string $mode): string
     return $modes[$mode] ?? 'Sesuai tanggal';
 }
 
+function qurban_animal_options(): array
+{
+    return [
+        'sapi' => 'Sapi',
+        'kambing' => 'Kambing',
+    ];
+}
+
+function qurban_animal_label(string $animalType): string
+{
+    $options = qurban_animal_options();
+
+    return $options[$animalType] ?? ucfirst($animalType);
+}
+
+function qurban_status_options(): array
+{
+    return [
+        'draft' => 'Draft',
+        'published' => 'Published',
+        'archived' => 'Archived',
+    ];
+}
+
+function qurban_hijri_year_label(int|string|null $year): string
+{
+    $value = trim((string) $year);
+
+    if ($value === '') {
+        return '-';
+    }
+
+    return preg_match('/\s*h$/i', $value) === 1 ? strtoupper($value) : $value . ' H';
+}
+
+function qurban_auto_share_label(string $animalType): string
+{
+    return qurban_share_label($animalType, $animalType === 'sapi' ? 7 : 1);
+}
+
+function qurban_share_count_options(string $animalType): array
+{
+    if ($animalType === 'sapi') {
+        return [
+            1 => '1 porsi sapi',
+            2 => '2 porsi sapi',
+            3 => '3 porsi sapi',
+            4 => '4 porsi sapi',
+            5 => '5 porsi sapi',
+            6 => '6 porsi sapi',
+            7 => '7 porsi sapi (1 ekor sapi)',
+        ];
+    }
+
+    return [
+        1 => '1 ekor kambing',
+    ];
+}
+
+function qurban_share_label(string $animalType, int $shareCount): string
+{
+    $shareCount = max(1, $shareCount);
+    $options = qurban_share_count_options($animalType);
+
+    return $options[$shareCount] ?? ($animalType === 'sapi' ? ($shareCount . ' porsi sapi') : ($shareCount . ' ekor kambing'));
+}
+
+function qurban_public_row_count(string $animalType, int $shareCount): int
+{
+    $shareCount = max(1, $shareCount);
+
+    return $animalType === 'sapi' ? $shareCount : 1;
+}
+
+function qurban_payment_label(bool|int|string $isPaid): string
+{
+    return (int) $isPaid === 1 ? 'Sudah Bayar' : 'Belum Bayar';
+}
+
 function infaq_progress_metrics(float $targetAmount, float $collectedAmount): array
 {
     if ($targetAmount <= 0) {
@@ -436,6 +515,7 @@ function admin_nav_items(): array
         ['key' => 'gallery', 'label' => 'Gallery', 'href' => '/gallery.php'],
         ['key' => 'video', 'label' => 'Video', 'href' => '/video.php'],
         ['key' => 'infaq', 'label' => 'Infaq', 'href' => '/infaq.php'],
+        ['key' => 'qurban', 'label' => 'Qurban', 'href' => '/qurban.php'],
         ['key' => 'laporan', 'label' => 'Laporan', 'href' => '/laporan-admin.php'],
     ];
 
@@ -467,7 +547,7 @@ function render_admin_page_start(string $pageTitle, string $activeNav): void
 </head>
 <body>
     <main class="dashboard-shell">
-        <aside class="sidebar">
+        <aside class="sidebar" id="dashboardSidebar">
             <div class="sidebar__brand">
                 <a href="<?= h(app_url('dashboard.php')); ?>"><?= h($siteName); ?></a>
                 <?php if ($siteTagline !== ''): ?>
@@ -491,8 +571,16 @@ function render_admin_page_start(string $pageTitle, string $activeNav): void
                 </form>
             </div>
         </aside>
+        <button class="dashboard-overlay" type="button" aria-hidden="true" tabindex="-1"></button>
 
         <section class="dashboard-content">
+            <div class="dashboard-mobile-bar">
+                <button class="dashboard-mobile-toggle" type="button" aria-controls="dashboardSidebar" aria-expanded="false">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                    <span>Menu</span>
+                </button>
+                <a class="dashboard-mobile-brand" href="<?= h(app_url('dashboard.php')); ?>"><?= h($siteName); ?></a>
+            </div>
     <?php
 }
 
@@ -530,6 +618,43 @@ function render_admin_page_end(): void
     ?>
         </section>
     </main>
+    <script>
+        (function () {
+            var body = document.body;
+            var sidebar = document.getElementById('dashboardSidebar');
+            var toggle = document.querySelector('.dashboard-mobile-toggle');
+            var overlay = document.querySelector('.dashboard-overlay');
+
+            if (!body || !sidebar || !toggle || !overlay) {
+                return;
+            }
+
+            function setMenuState(isOpen) {
+                body.classList.toggle('dashboard-menu-open', isOpen);
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            toggle.addEventListener('click', function () {
+                setMenuState(!body.classList.contains('dashboard-menu-open'));
+            });
+
+            overlay.addEventListener('click', function () {
+                setMenuState(false);
+            });
+
+            sidebar.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    setMenuState(false);
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 1024) {
+                    setMenuState(false);
+                }
+            });
+        }());
+    </script>
 </body>
 </html>
     <?php

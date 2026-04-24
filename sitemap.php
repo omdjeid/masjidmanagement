@@ -41,6 +41,7 @@ $entries = [
     sitemap_entry('laporan.php', null, 'weekly', '0.8'),
     sitemap_entry('lokasi.php', null, 'monthly', '0.7'),
     sitemap_entry('infaq-page.php', null, 'weekly', '0.8'),
+    sitemap_entry('qurban-page.php', null, 'weekly', '0.8'),
 ];
 
 try {
@@ -78,6 +79,15 @@ try {
     )->fetch();
     if (is_array($latestInfaq) && trim((string) ($latestInfaq['lastmod'] ?? '')) !== '') {
         $entries[6]['lastmod'] = sitemap_lastmod((string) $latestInfaq['lastmod']);
+    }
+
+    $latestQurban = db()->query(
+        "SELECT MAX(COALESCE(updated_at, created_at)) AS lastmod
+         FROM qurban_participants
+         WHERE status = 'published'"
+    )->fetch();
+    if (is_array($latestQurban) && trim((string) ($latestQurban['lastmod'] ?? '')) !== '') {
+        $entries[7]['lastmod'] = sitemap_lastmod((string) $latestQurban['lastmod']);
     }
 
     $articleRows = db()->query(

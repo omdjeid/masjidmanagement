@@ -8,6 +8,20 @@ $activeNav = (string) ($layout['active_nav'] ?? '');
 $mobileItems = is_array($layout['mobile_items'] ?? null) ? $layout['mobile_items'] : [];
 ?>
     </main>
+    <button class="public-mobile-overlay" type="button" aria-hidden="true" tabindex="-1"></button>
+    <aside class="public-mobile-drawer" id="publicMobileDrawer" aria-label="Navigasi publik mobile">
+        <div class="public-mobile-drawer__brand">
+            <a class="public-brand" href="<?= h(app_url()); ?>"><?= h($siteName); ?></a>
+            <?php if ($siteTagline !== ''): ?>
+                <p><?= h($siteTagline); ?></p>
+            <?php endif; ?>
+        </div>
+        <nav class="public-mobile-drawer__nav" aria-label="Navigasi publik mobile">
+            <?php foreach ($mobileItems as $key => $item): ?>
+                <a class="<?= $activeNav === $key ? 'is-active' : ''; ?>" href="<?= h((string) ($item['href'] ?? app_url())); ?>"><?= h((string) ($item['label'] ?? '')); ?></a>
+            <?php endforeach; ?>
+        </nav>
+    </aside>
     <footer class="public-footer">
         <div class="public-footer__inner">
             <div>
@@ -16,22 +30,45 @@ $mobileItems = is_array($layout['mobile_items'] ?? null) ? $layout['mobile_items
                     <p><?= h($siteTagline); ?></p>
                 <?php endif; ?>
             </div>
-            <div class="public-footer__links">
-                <a href="<?= h(app_url()); ?>">Home</a>
-                <a href="<?= h(app_url('jadwal.php')); ?>">Jadwal</a>
-                <a href="<?= h(app_url('artikel-list.php')); ?>">Artikel</a>
-                <a href="<?= h(app_url('kajian-video.php')); ?>">Video</a>
-                <a href="<?= h(app_url('laporan.php')); ?>">Laporan</a>
-                <a href="<?= h(app_url('lokasi.php')); ?>">Lokasi</a>
-                <a href="<?= h(app_url('infaq-page.php')); ?>">Infaq</a>
-            </div>
             <p class="public-footer__copy">&copy; 2026 <?= h($siteName); ?><?= $siteTagline !== '' ? '. ' . h($siteTagline) : ''; ?></p>
         </div>
     </footer>
-    <nav class="public-mobile-nav" aria-label="Navigasi bawah">
-        <?php foreach ($mobileItems as $key => $item): ?>
-            <a class="<?= $activeNav === $key ? 'is-active' : ''; ?>" href="<?= h((string) ($item['href'] ?? app_url())); ?>"><?= h((string) ($item['label'] ?? '')); ?></a>
-        <?php endforeach; ?>
-    </nav>
+    <script>
+        (function () {
+            var body = document.body;
+            var drawer = document.getElementById('publicMobileDrawer');
+            var toggle = document.querySelector('.public-mobile-toggle');
+            var overlay = document.querySelector('.public-mobile-overlay');
+
+            if (!body || !drawer || !toggle || !overlay) {
+                return;
+            }
+
+            function setMenuState(isOpen) {
+                body.classList.toggle('public-menu-open', isOpen);
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            toggle.addEventListener('click', function () {
+                setMenuState(!body.classList.contains('public-menu-open'));
+            });
+
+            overlay.addEventListener('click', function () {
+                setMenuState(false);
+            });
+
+            drawer.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    setMenuState(false);
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 760) {
+                    setMenuState(false);
+                }
+            });
+        }());
+    </script>
 </body>
 </html>

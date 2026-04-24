@@ -113,6 +113,63 @@ CREATE TABLE IF NOT EXISTS infaq_campaigns (
 ALTER TABLE infaq_campaigns
     ADD COLUMN IF NOT EXISTS completion_mode ENUM('date', 'amount') NOT NULL DEFAULT 'date' AFTER description;
 
+CREATE TABLE IF NOT EXISTS qurban_participants (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    hijri_year SMALLINT UNSIGNED NOT NULL,
+    participant_name VARCHAR(190) NOT NULL,
+    animal_type ENUM('sapi', 'kambing') NOT NULL DEFAULT 'kambing',
+    group_name VARCHAR(120) NULL,
+    is_paid TINYINT(1) NOT NULL DEFAULT 0,
+    share_count TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    share_label VARCHAR(60) NULL,
+    notes TEXT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    status ENUM('draft', 'published', 'archived') NOT NULL DEFAULT 'published',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    KEY idx_qurban_year_status (hijri_year, status),
+    KEY idx_qurban_order (sort_order, id)
+);
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS group_name VARCHAR(120) NULL AFTER animal_type;
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS is_paid TINYINT(1) NOT NULL DEFAULT 0 AFTER group_name;
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS share_count TINYINT UNSIGNED NOT NULL DEFAULT 1 AFTER is_paid;
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS share_label VARCHAR(60) NULL AFTER share_count;
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS notes TEXT NULL AFTER share_label;
+
+ALTER TABLE qurban_participants
+    ADD COLUMN IF NOT EXISTS sort_order INT NOT NULL DEFAULT 0 AFTER notes;
+
+UPDATE qurban_participants
+SET animal_type = 'kambing'
+WHERE animal_type IS NULL OR animal_type NOT IN ('sapi', 'kambing');
+
+UPDATE qurban_participants
+SET share_count = 7
+WHERE animal_type = 'sapi'
+  AND (share_count IS NULL OR share_count = 1)
+  AND (share_label IS NULL OR share_label = '' OR share_label = '1 ekor sapi');
+
+UPDATE qurban_participants
+SET share_count = 1
+WHERE share_count IS NULL OR share_count < 1;
+
+UPDATE qurban_participants
+SET is_paid = 0
+WHERE is_paid IS NULL;
+
+ALTER TABLE qurban_participants
+    MODIFY COLUMN animal_type ENUM('sapi', 'kambing') NOT NULL DEFAULT 'kambing';
+
 CREATE TABLE IF NOT EXISTS site_settings (
     setting_key VARCHAR(120) PRIMARY KEY,
     setting_value LONGTEXT NULL,

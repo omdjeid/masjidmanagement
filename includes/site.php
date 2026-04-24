@@ -316,6 +316,7 @@ function public_page_start(string $title, string $activeNav, array $meta = []): 
         'laporan' => ['label' => 'Laporan', 'href' => app_url('laporan.php')],
         'lokasi' => ['label' => 'Lokasi', 'href' => app_url('lokasi.php')],
         'infaq' => ['label' => 'Infaq', 'href' => app_url('infaq-page.php')],
+        'qurban' => ['label' => 'Qurban', 'href' => app_url('qurban-page.php')],
     ];
 
     $GLOBALS['_public_layout_data'] = [
@@ -341,6 +342,7 @@ function public_page_end(): void
         'laporan' => ['label' => 'Laporan', 'href' => app_url('laporan.php')],
         'lokasi' => ['label' => 'Lokasi', 'href' => app_url('lokasi.php')],
         'infaq' => ['label' => 'Infaq', 'href' => app_url('infaq-page.php')],
+        'qurban' => ['label' => 'Qurban', 'href' => app_url('qurban-page.php')],
     ];
 
     $layout = is_array($GLOBALS['_public_layout_data'] ?? null) ? $GLOBALS['_public_layout_data'] : [];

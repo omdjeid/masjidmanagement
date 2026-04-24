@@ -33,6 +33,7 @@ $stats = [
     'Artikel' => fetch_record_count('articles'),
     'Video' => fetch_record_count('videos'),
     'Infaq' => fetch_record_count('infaq_campaigns'),
+    'Qurban' => fetch_record_count('qurban_participants'),
 ];
 
 $statValues = [
@@ -40,6 +41,7 @@ $statValues = [
     'Artikel' => dashboard_count_value($stats['Artikel']),
     'Video' => dashboard_count_value($stats['Video']),
     'Infaq' => dashboard_count_value($stats['Infaq']),
+    'Qurban' => dashboard_count_value($stats['Qurban']),
 ];
 
 $summaryBars = [
@@ -47,6 +49,7 @@ $summaryBars = [
     ['label' => 'Artikel', 'value' => $statValues['Artikel'], 'tone' => 'base'],
     ['label' => 'Video', 'value' => $statValues['Video'], 'tone' => 'accent'],
     ['label' => 'Infaq', 'value' => $statValues['Infaq'], 'tone' => 'soft'],
+    ['label' => 'Qurban', 'value' => $statValues['Qurban'], 'tone' => 'accent'],
     ['label' => 'User', 'value' => dashboard_count_value(fetch_record_count('admin_users')), 'tone' => 'base'],
 ];
 
@@ -56,9 +59,12 @@ $latestSchedule = null;
 $latestArticle = null;
 $latestVideo = null;
 $latestCampaign = null;
+$latestQurban = null;
 $totalCollectedAmount = 0.0;
 $activeCampaignCount = 0;
 $scheduledKajianCount = 0;
+$latestQurbanYear = null;
+$publishedQurbanCount = 0;
 $categoryCount = dashboard_count_value(fetch_record_count('master_categories'));
 $tickerItems = configuration_lines('homepage_ticker_text', homepage_ticker_defaults());
 $generalDefaults = general_setting_defaults();
@@ -70,6 +76,7 @@ try {
     $latestArticle = dashboard_recent_item('articles', 'COALESCE(published_at, created_at) DESC, id DESC');
     $latestVideo = dashboard_recent_item('videos', 'video_date IS NULL, video_date DESC, id DESC');
     $latestCampaign = dashboard_recent_item('infaq_campaigns', 'created_at DESC, id DESC');
+    $latestQurban = dashboard_recent_item('qurban_participants', 'hijri_year DESC, sort_order ASC, id DESC');
 
     $infaqSummary = db()->query(
         "SELECT COALESCE(SUM(collected_amount), 0) AS total_collected,
@@ -89,6 +96,19 @@ try {
     if ($kajianSummary !== false) {
         $scheduledKajianCount = (int) ($kajianSummary['total'] ?? 0);
     }
+
+    $qurbanSummary = db()->query(
+        "SELECT hijri_year, COUNT(*) AS total
+         FROM qurban_participants
+         WHERE status = 'published'
+         GROUP BY hijri_year
+         ORDER BY hijri_year DESC
+         LIMIT 1"
+    )->fetch();
+    if ($qurbanSummary !== false) {
+        $latestQurbanYear = (int) ($qurbanSummary['hijri_year'] ?? 0);
+        $publishedQurbanCount = (int) ($qurbanSummary['total'] ?? 0);
+    }
 } catch (Throwable) {
     // Keep dashboard usable with fallbacks if some tables are unavailable.
 }
@@ -99,7 +119,7 @@ render_admin_page_start('Dashboard Admin', 'dashboard');
                 <div>
                     <p class="eyebrow">Mosque Management Portal</p>
                     <h1>Control Room</h1>
-                    <p class="page-top__description">Ringkasan admin <?= h($siteName); ?> yang menampilkan konten, jadwal, video, campaign, dan setting aktif dalam satu control room.</p>
+                    <p class="page-top__description">Ringkasan admin <?= h($siteName); ?> yang menampilkan konten, jadwal, video, infaq, qurban, dan setting aktif dalam satu control room.</p>
                 </div>
                 <div class="control-topbar__meta">
                     <div class="control-chip control-chip--alert">
@@ -186,6 +206,11 @@ render_admin_page_start('Dashboard Admin', 'dashboard');
                             <strong><?= h((string) ($latestCampaign['title'] ?? 'Kelola Campaign Infaq')); ?></strong>
                             <p><?= h($latestCampaign !== null ? ('Terkumpul ' . format_currency((float) $latestCampaign['collected_amount']) . ' dari target ' . format_currency((float) $latestCampaign['target_amount'])) : 'Atur campaign infaq dan progres donasi.'); ?></p>
                         </a>
+                        <a class="quick-action" href="<?= h(app_url('qurban.php')); ?>">
+                            <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                            <strong><?= h($latestQurbanYear !== null && $latestQurbanYear > 0 ? ('Peserta Qurban ' . qurban_hijri_year_label($latestQurbanYear)) : ((string) ($latestQurban['participant_name'] ?? 'Kelola Peserta Qurban'))); ?></strong>
+                            <p><?= h($publishedQurbanCount > 0 && $latestQurbanYear !== null ? ($publishedQurbanCount . ' peserta siap tampil pada ' . qurban_hijri_year_label($latestQurbanYear) . '.') : 'Tambah dan rapikan daftar peserta qurban per tahun Hijriah.'); ?></p>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -199,6 +224,7 @@ render_admin_page_start('Dashboard Admin', 'dashboard');
                 <a href="<?= h(app_url('gallery.php')); ?>">Gallery Upload</a>
                 <a href="<?= h(app_url('laporan-admin.php')); ?>">Kelola Laporan</a>
                 <a href="<?= h(app_url('video.php')); ?>">Upload Video</a>
+                <a href="<?= h(app_url('qurban.php')); ?>">Kelola Qurban</a>
             </section>
 <?php
 render_admin_page_end();

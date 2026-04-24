@@ -51,9 +51,7 @@ img {
 
 .site-brand,
 .hero-prayer h1,
-.bento-card h2,
-.community-section h2,
-.community-card h3 {
+.bento-card h2 {
     font-family: "Noto Serif", serif;
 }
 
@@ -98,8 +96,7 @@ img {
 
 .site-nav a:hover,
 .footer-links a:hover,
-.article-meta a:not(.button-link):hover,
-.section-heading a:not(.button-link):hover {
+.article-meta a:not(.button-link):hover {
     color: var(--primary);
 }
 
@@ -268,8 +265,7 @@ img {
     box-shadow: var(--shadow);
 }
 
-.bento-card h2,
-.community-section h2 {
+.bento-card h2 {
     margin: 0;
     color: var(--primary);
     font-size: clamp(2rem, 4vw, 3rem);
@@ -281,8 +277,6 @@ img {
 .bento-card--video span,
 .article-meta span,
 .progress-meta span,
-.section-heading p,
-.community-card p,
 .site-footer p,
 .site-footer__copy {
     color: var(--text-soft);
@@ -526,8 +520,7 @@ img {
     gap: 1rem;
 }
 
-.article-meta a:not(.button-link),
-.section-heading a:not(.button-link) {
+.article-meta a:not(.button-link) {
     color: var(--primary);
     font-weight: 700;
 }
@@ -556,42 +549,6 @@ img {
 
 .button-link--dark .material-symbols-outlined {
     font-size: 1rem;
-}
-
-.community-section {
-    margin-top: 6rem;
-}
-
-.section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 1.5rem;
-}
-
-.section-heading p {
-    max-width: 42rem;
-    margin: 1rem 0 0;
-}
-
-.community-grid {
-    margin-top: 1.75rem;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
-}
-
-.community-card {
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-    background: var(--surface);
-    box-shadow: var(--shadow);
-}
-
-.community-card h3 {
-    margin: 0 0 0.75rem;
-    color: var(--primary);
-    font-size: 1.55rem;
 }
 
 .site-footer {
@@ -692,7 +649,6 @@ img {
 
     .hero-prayer__content,
     .schedule-card__footer,
-    .section-heading,
     .site-footer__inner {
         flex-direction: column;
         align-items: flex-start;
@@ -710,9 +666,6 @@ img {
         grid-column: span 12;
     }
 
-    .community-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 760px) {
@@ -747,8 +700,7 @@ img {
     }
 
     .hero-prayer,
-    .bento-card,
-    .community-card {
+    .bento-card {
         border-radius: 0.9rem;
     }
 

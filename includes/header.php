@@ -12,7 +12,7 @@ $pageTitleTag = page_title_tag($title, $siteName);
 <html lang="id">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
     <title><?= h($pageTitleTag); ?></title>
     <?php render_site_meta_tags($layout); ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +30,14 @@ $pageTitleTag = page_title_tag($title, $siteName);
                     <a class="<?= $activeNav === $key ? 'is-active' : ''; ?>" href="<?= h((string) ($item['href'] ?? app_url())); ?>"><?= h((string) ($item['label'] ?? '')); ?></a>
                 <?php endforeach; ?>
             </nav>
+            <button class="public-mobile-toggle" type="button" aria-controls="publicMobileDrawer" aria-expanded="false" aria-label="Buka menu">
+                <span class="public-mobile-toggle__icon" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span>Menu</span>
+            </button>
         </div>
     </header>
     <main class="public-main">

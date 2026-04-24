@@ -36,6 +36,7 @@ function app_route_aliases(): array
         'laporan-detail.php' => 'laporan',
         'lokasi.php' => 'lokasi',
         'infaq-page.php' => 'infaq',
+        'qurban-page.php' => 'qurban',
         'login.php' => 'dashboard/login',
         'logout.php' => 'dashboard/logout',
         'setup-admin.php' => 'dashboard/setup-admin',
@@ -45,6 +46,7 @@ function app_route_aliases(): array
         'gallery.php' => 'dashboard/gallery',
         'video.php' => 'dashboard/video',
         'infaq.php' => 'dashboard/infaq',
+        'qurban.php' => 'dashboard/qurban',
         'laporan-admin.php' => 'dashboard/laporan',
         'settings.php' => 'dashboard/settings',
     ];
